@@ -11,7 +11,6 @@ Package('SgcModule.Services', {
 
 		onReady : function()
 		{
-			console.log('onReady');
 			var game = {
 				image: SGC_MODULE.baseUrl + 'sgc-module/pages/mj/assets/images/mj-image.jpg',
 				name: 'Mah Jongg Solitaire',
@@ -19,14 +18,12 @@ Package('SgcModule.Services', {
 			};
 
 			this.directoryService = SYMPHONY.services.subscribe('directory');
-			console.log('this.directoryService', this.directoryService);
 			this.directoryService.add(game);
-			console.log('done onReady');
 		},
 
 		play : function(game)
 		{
-			console.log('PLAY GAME!');
+			SAPPHIRE.application.showPage('mj');
 		}
 	})
 });

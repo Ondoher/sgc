@@ -23,7 +23,6 @@ Package('SgcModule.Services', {
 
 		add : function(game)
 		{
-			console.log('add', game);
 			this.directory[game.name] = game;
 			this.fire('update');
 		},

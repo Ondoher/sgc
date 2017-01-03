@@ -27,7 +27,7 @@ Package('SgcModule.Views', {
 		onGameClick : function(game)
 		{
 			this.fire('play', game);
-			SAPPHIRE.application.showPage('mj');
+//			SAPPHIRE.application.showPage('mj');
 		}
 	})
 });
