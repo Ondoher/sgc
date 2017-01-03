@@ -1,0 +1,9 @@
+{
+  "name": "symphony-games-app",
+  "version": "1.0.0",
+  "description": "The Symfuny Game Center",
+  "dependencies": {
+    "q": "^1.4.1",
+    "sapphire-express": "^1.1.1"
+  }
+}
