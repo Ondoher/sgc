@@ -1,0 +1,2 @@
+# sgc
+Symfuny Game Center
