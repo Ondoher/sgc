@@ -14,6 +14,7 @@ Package('SgcModule.Controllers', {
 		{
 			console.log('arguments', arguments);
 			this.view = new SgcModule.Views.Directory(selector);
+			this.view.listen('play', this.onPlay.bind(this));
 			this.directoryService = SYMPHONY.services.subscribe('directory');
 			this.directoryService.listen('update', this.onDirectoryUpdate.bind(this));
 		},
@@ -28,6 +29,11 @@ Package('SgcModule.Controllers', {
 		{
 			var directory = this.directoryService.get();
 			this.view.draw(directory);
+		},
+
+		onPlay : function(game)
+		{
+			this.directoryService.play(game);
 		}
 	})
 });

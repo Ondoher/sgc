@@ -1,6 +1,6 @@
 Package('SgcModule.Services', {
 	Directory : new Class({
-		implements : ['get', 'add'],
+		implements : ['get', 'add', 'play', 'crumbClick'],
 
 		initialize : function()
 		{
@@ -13,6 +13,7 @@ Package('SgcModule.Services', {
 		onReady : function()
 		{
 			SAPPHIRE.application.showPage('directory');
+			this.crumbsService = SYMPHONY.services.subscribe('bread-crumbs');
 		},
 
 		get : function()
@@ -25,6 +26,20 @@ Package('SgcModule.Services', {
 			console.log('add', game);
 			this.directory[game.name] = game;
 			this.fire('update');
+		},
+
+		play : function(game)
+		{
+			var service = SYMPHONY.services.subscribe(game.service);
+			if (!service) return;
+
+			service.invoke('play', game);
+			this.crumbsService.add('Directory', 'directory', 'directory');
+		},
+
+		crumbClick : function(id)
+		{
+			SAPPHIRE.application.showPage('directory');
 		}
 	})
 });

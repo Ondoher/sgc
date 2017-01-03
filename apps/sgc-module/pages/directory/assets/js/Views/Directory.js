@@ -11,6 +11,8 @@ Package('SgcModule.Views', {
 		draw : function(directory)
 		{
 			var container = this.root.find('.directory-container');
+			container.empty();
+
 			Object.each(directory, function(game)
 			{
 				var template = SAPPHIRE.templates.get('directory-card');
@@ -24,10 +26,8 @@ Package('SgcModule.Views', {
 
 		onGameClick : function(game)
 		{
-			var service = SYMPHONY.services.subscribe(game.service);
-			if (!service) return;
-
-			service.invoke('play', game);
+			this.fire('play', game);
+			SAPPHIRE.application.showPage('mj');
 		}
 	})
 });
