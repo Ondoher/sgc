@@ -12,7 +12,7 @@ Package('SgcModule.Services', {
 		onReady : function()
 		{
 			var game = {
-				image: SGC_MODULE.baseUrl + 'sgc-module/pages/mj/assets/images/mj-image.jpg',
+				image: SGC_MODULE.baseUrl + 'sgc-module/pages/mj/assets/images/mj-tile.jpg',
 				name: 'Mah Jongg Solitaire',
 				service: 'mj',
 			};

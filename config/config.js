@@ -13,6 +13,7 @@ var config = {
 		cert : fs.readFileSync(__dirname + '/certs/localhost/localhost.cert', {encoding: 'utf-8'}),
 	},
 	baseUrl : 'https://localhost:8081/',
+	cacheBust: false,
 }
 
 var env = process.env.node_env;

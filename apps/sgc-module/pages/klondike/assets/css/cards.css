@@ -1,0 +1,79 @@
+
+
+
+/*
+ 72 x 96
+
+ 1, 74, 147, 220, 293, 366, 439, 512, 585, 658, 731, 804, 877
+ 1, 99, 197, 295
+
+*/
+
+.card {
+	background-image: url("/sgc-module/pages/klondike/assets/images/cards.png");
+	background-repeat: no-repeat;
+	width: 71px;
+	height: 96px;
+}
+
+.card-0 {background-position: -1px -1px;}
+.card-1 {background-position: -74px -1px;}
+.card-2 {background-position: -147px -1px;}
+.card-3 {background-position: -220px -1px;}
+.card-4 {background-position: -293px -1px;}
+.card-5 {background-position: -366px -1px;}
+.card-6 {background-position: -439px -1px;}
+.card-7 {background-position: -512px -1px;}
+.card-8 {background-position: -585px -1px;}
+.card-9 {background-position: -658px -1px;}
+.card-10 {background-position: -731px -1px;}
+.card-11 {background-position: -804px -1px;}
+.card-12 {background-position: -877px -1px;}
+
+.card-13 {background-position: -1px -99px;}
+.card-14 {background-position: -74px -99px;}
+.card-15 {background-position: -147px -99px;}
+.card-16 {background-position: -220px -99px;}
+.card-17 {background-position: -293px -99px;}
+.card-18 {background-position: -366px -99px;}
+.card-19 {background-position: -439px -99px;}
+.card-20 {background-position: -512px -99px;}
+.card-21 {background-position: -585px -99px;}
+.card-22 {background-position: -658px -99px;}
+.card-23 {background-position: -731px -99px;}
+.card-24 {background-position: -804px -99px;}
+.card-25 {background-position: -877px -99px;}
+
+.card-26 {background-position: -1px -197px;}
+.card-27 {background-position: -74px -197px;}
+.card-28 {background-position: -147px -197px;}
+.card-29 {background-position: -220px -197px;}
+.card-30 {background-position: -293px -197px;}
+.card-31 {background-position: -366px -197px;}
+.card-32 {background-position: -439px -197px;}
+.card-33 {background-position: -512px -197px;}
+.card-34 {background-position: -585px -197px;}
+.card-35 {background-position: -658px -197px;}
+.card-36 {background-position: -731px -197px;}
+.card-37 {background-position: -804px -197px;}
+.card-38 {background-position: -877px -197px;}
+
+.card-39 {background-position: -1px -295px;}
+.card-40 {background-position: -74px -295px;}
+.card-41 {background-position: -147px -295px;}
+.card-42 {background-position: -220px -295px;}
+.card-43 {background-position: -293px -295px;}
+.card-44 {background-position: -366px -295px;}
+.card-45 {background-position: -439px -295px;}
+.card-46 {background-position: -512px -295px;}
+.card-47 {background-position: -585px -295px;}
+.card-48 {background-position: -658px -295px;}
+.card-49 {background-position: -731px -295px;}
+.card-50 {background-position: -804px -295px;}
+.card-51 {background-position: -877px -295px;}
+
+.card-back {
+	background-image: url("/sgc-module/pages/klondike/assets/images/back.png");
+	background-repeat: no-repeat;
+}
+

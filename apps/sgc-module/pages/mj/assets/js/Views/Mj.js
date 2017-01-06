@@ -1,4 +1,4 @@
-Package('SgcModule.Views', {
+Package('Sparcade.Views', {
 	Mj : new Class({
 		Extends : Sapphire.View,
 

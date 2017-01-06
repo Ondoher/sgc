@@ -20,6 +20,8 @@ function main(req, res, app)
 		'/assets/js/lib/templates.js',
 		'/sgc-module/assets/js/Views/SgcModule.js',
 		'/sgc-module/assets/js/Controllers/SgcModule.js',
+		'/sgc-module/assets/js/random.js',
+		'/sgc-module/assets/js/sets.js',
 	]);
 
 
@@ -52,6 +54,8 @@ exports.getApplication = function(req, res)
 		.then(use('features', 'bread-crumbs', req, res))
 		.then(use('pages', 'directory', req, res))
 		.then(use('pages', 'mj', req, res))
+		.then(use('pages', 'tetris', req, res))
+		.then(use('pages', 'klondike', req, res))
 		.then(function(app)
 		{
 			return Q(app);

@@ -1,2 +1,11 @@
-.mj-page {
+.mj-table {
+	padding: 10px;
 }
+
+.mj-page {
+	background-image: url("/sgc-module/pages/mj/assets/images/bamboo.jpg");
+}
+
+#board-canvas {position: relative; width: 940px; height: 760px; overflow: hidden}
+
+

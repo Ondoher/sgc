@@ -1,4 +1,4 @@
-Package('SgcModule.Controllers', {
+Package('Sparcade.Controllers', {
 	Mj : new Class({
 		Extends : Sapphire.Controller,
 
@@ -12,7 +12,7 @@ Package('SgcModule.Controllers', {
 
 		onLoad : function()
 		{
-			this.view = new SgcModule.Views.Mj();
+			this.view = new Sparcade.Views.Mj();
 		},
 
 		onShow : function(panel, query)
@@ -22,4 +22,4 @@ Package('SgcModule.Controllers', {
 	})
 });
 
-SAPPHIRE.application.registerController('mj', new SgcModule.Controllers.Mj());
+SAPPHIRE.application.registerController('mj', new Sparcade.Controllers.Mj());

@@ -1,0 +1,75 @@
+<div id="tetris-page" class="page tetris-page">
+	<div style="color: white">
+		<br>
+		<div id="log"></div>
+		<table align="center" cellspacing="0" cellpadding="0" border="0">
+			<tbody>
+				<tr>
+					<td>
+						<div style="width: 320px; height: 46px; background-image: url(/sgc-module/pages/tetris/assets/images/header.jpg);">
+							<div style="float: right; padding-top: 6px;">
+								<a id="play-game" href="javascript:void(0)">
+									<img src="/sgc-module/pages/tetris/assets/images/play_btn.jpg" border="0" alt="play">
+								</a>
+							</div>
+						</div>
+						<div style="width: 320px; height: 400px;background-image: url(/sgc-module/pages/tetris/assets/images/bottom.jpg);border: 0px solid red;">
+							<div id="scoreBoard" style="width: 100%">
+								<table width="300" align="center" style="border: 0px solid red; color: white">
+									<tbody>
+										<tr>
+											<td width="100px">
+												<div id="score">SCORE: 0</div>
+											</td>
+											<td width="100px">
+												<div id="level">LEVEL: 1</div>
+											</td>
+											<td width="100px">
+												<div id="goal">GOAL: 10</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div style="height: 9px"></div>
+							<a name="game-start"></a>
+							<table align="center" style="width: 320px;" cellpadding="0" cellspacing="0" border="0">
+								<tbody>
+									<tr>
+										<td>
+											<div id="game-board" style="width: 320px; border: 0px solid red; height: 330px;">
+												<div id="message" style="visibility: hidden;"></div>
+												<div id="small-message">&nbsp;</div>
+												<div id="left-buttons">
+													<div id="hold"></div>
+													<div id="hold-title">HOLD</div>
+												</div>
+												<div id="right-buttons">
+													<div id="on-deck">
+														<div id="on-deck-1"></div>
+														<div id="on-deck-2"></div>
+														<div id="on-deck-3"></div>
+													</div>
+												</div>
+												<div id="layout" style="left: 80px;">
+													<img src="/sgcModule/pages/tetris/assets//sgc-module/pages/tetris/assets/images/whoop.png" style="z-index: 0; position: absolute; visibility: hidden;">
+													<div style="visibility: hidden; position: absolute; z-index: 2;"></div>
+													<div style="visibility: hidden; position: absolute; z-index: 2; opacity: 0.25;"></div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<a name="game-start">
+								<div id="instructions-state"></div>
+								<div id="instructions"></div>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+</div>
