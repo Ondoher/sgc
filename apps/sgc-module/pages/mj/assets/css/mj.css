@@ -3,9 +3,43 @@
 }
 
 .mj-page {
-	background-image: url("/sgc-module/pages/mj/assets/images/bamboo.jpg");
+	background-image: url("/sgc-module/pages/mj/assets/images/oak.jpg");
 }
 
+#mj-timer {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: white;
+  color: #f8f8f7;
+ }
+
 #board-canvas {position: relative; width: 940px; height: 760px; overflow: hidden}
+.to-beat {
+    text-align: center;
+    width: 100%;
+}
 
+.to-beat .beat-timer {
+	font-weight: bold;
+    color: #d93f3a;
+}
 
+.show-won {display: none !important}
+.won .show-won {display: inline-block !important}
+
+.show-to-beat {display: none !important}
+.to-beat .show-to-beat {display: inline-block !important}
+
+.symphony-external-app .mj-table .button {
+	padding: 8px 12px 4px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 1px rgba(0, 0, 0, 0.3);
+	background-color: #605fab;
+}
+
+.action-buttons {
+    margin-bottom: 24px;
+    text-align: center;
+}

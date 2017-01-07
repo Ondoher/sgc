@@ -1,10 +1,10 @@
 Package('SgcModule.Services', {
-	Klondike : new Class({
+	Words : new Class({
 		implements : ['play'],
 
 		initialize : function()
 		{
-			SYMPHONY.services.make('klondike', this, this.implements, true);
+			SYMPHONY.services.make('words', this, this.implements, true);
 
 			SAPPHIRE.application.listen('ready', this.onReady.bind(this));
 		},
@@ -12,9 +12,9 @@ Package('SgcModule.Services', {
 		onReady : function()
 		{
 			var game = {
-				image: SGC_MODULE.baseUrl + 'sgc-module/pages/klondike/assets/images/klondike-tile.jpg',
-				name: 'Solitaire',
-				service: 'klondike',
+				image: SGC_MODULE.baseUrl + 'sgc-module/pages/words/assets/images/words-tile.jpg',
+				name: 'Words',
+				service: 'words',
 			};
 
 			this.directoryService = SYMPHONY.services.subscribe('directory');
@@ -23,9 +23,9 @@ Package('SgcModule.Services', {
 
 		play : function(game)
 		{
-			SAPPHIRE.application.showPage('klondike');
+			SAPPHIRE.application.showPage('words');
 		}
 	})
 });
 
-new SgcModule.Services.Klondike();
+new SgcModule.Services.Words();

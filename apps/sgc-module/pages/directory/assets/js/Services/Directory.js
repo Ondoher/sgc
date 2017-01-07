@@ -6,6 +6,7 @@ Package('SgcModule.Services', {
 		{
 			SYMPHONY.services.make('directory', this, this.implements, true);
 			SAPPHIRE.application.listen('ready', this.onReady.bind(this));
+			SAPPHIRE.application.listen('linked', this.onLinked.bind(this));
 
 			this.directory = {};
 		},
@@ -39,6 +40,12 @@ Package('SgcModule.Services', {
 		crumbClick : function(id)
 		{
 			SAPPHIRE.application.showPage('directory');
+		},
+
+		onLinked : function()
+		{
+			this.crumbsService.clear();
+			this.crumbsService.add('Directory', 'directory', 'directory');
 		}
 	})
 });

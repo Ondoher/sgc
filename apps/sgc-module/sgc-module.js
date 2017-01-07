@@ -56,6 +56,7 @@ exports.getApplication = function(req, res)
 		.then(use('pages', 'mj', req, res))
 		.then(use('pages', 'tetris', req, res))
 		.then(use('pages', 'klondike', req, res))
+		.then(use('pages', 'words', req, res))
 		.then(function(app)
 		{
 			return Q(app);

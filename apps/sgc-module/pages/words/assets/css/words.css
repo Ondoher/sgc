@@ -1,0 +1,132 @@
+.words-page #game-board {
+	width: 320px;
+	height: 480px;
+	background-image: url('/sgc-module/pages/words/assets/images/background.jpg');
+	font-family: "Courier New", Courier, monospace;
+}
+
+.logo {
+	position: absolute;
+	background-image: url('/sgc-module/pages/words/assets/images/logo.png');
+	width: 320px;
+	height: 140px;
+	top: 26px;
+	}
+
+#playedSpace0 { position: absolute; top: 250px; left: 3px; cursor: pointer;}
+#playedSpace1 { position: absolute; top: 250px; left: 55px; cursor: pointer;}
+#playedSpace2 { position: absolute; top: 250px; left: 108px; cursor: pointer;}
+#playedSpace3 { position: absolute; top: 250px; left: 160px; cursor: pointer; }
+#playedSpace4 { position: absolute; top: 250px; left: 213px; cursor: pointer; }
+#playedSpace5 { position: absolute; top: 250px; left: 265px; cursor: pointer; }
+
+#unplayedSpace0 { position: absolute; top: 301px; left: 3px; cursor: pointer; }
+#unplayedSpace1 { position: absolute; top: 301px; left: 55px; cursor: pointer; }
+#unplayedSpace2 { position: absolute; top: 301px; left: 108px; cursor: pointer; }
+#unplayedSpace3 { position: absolute; top: 301px; left: 160px; cursor: pointer; }
+#unplayedSpace4 { position: absolute; top: 301px; left: 213px; cursor: pointer; }
+#unplayedSpace5 { position: absolute; top: 301px; left: 265px; cursor: pointer; }
+
+#words0 { position: absolute; top: 55px; left: 16px; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+#words1 { position: absolute; top: 55px; left: 75px; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+#words2 { position: absolute; top: 55px; left: 134px; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+#words3 { position: absolute; top: 55px; left: 193px; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+#words4 { position: absolute; top: 55px; left: 252px; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+#enterButton	{ position: absolute; top: 365px; left: 108px; cursor: pointer; }
+#startButton	{ position: absolute; top: 365px; left: 108px; cursor: pointer; }
+#scrambleButton { position: absolute; top: 359px; left: 4px; cursor: pointer; }
+#lastButton		{ position: absolute; top: 401px; left: 4px; cursor: pointer; }
+#clearButton	{ position: absolute; top: 359px; left: 231px; cursor: pointer; }
+#endButton		{ position: absolute; top: 402px; left: 231px; cursor: pointer; }
+
+#timerFrame { position: absolute; top: 16px; left: 13px; }
+#timerValue { position: absolute; top: 22px; left: 95px; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: bold; color: #45447b;}
+#scoreFrame { position: absolute; top: 16px; left: 179px; }
+#scoreValue { position: absolute; top: 22px; left: 265px; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: bold; color: #45447b;}
+
+div#gamePageScoreContainer { display: none; }
+
+
+.game-board .container { position: absolute; top: 100px; left: 15px; width: 290px; height: 310px; clip: rect('0px', '100px', '320px', '300px'); text-align: center; }
+
+
+#body {
+	background-repeat: repeat-y;
+	background-position: left top;
+	min-height: 376px;
+	}
+
+#footer {
+	margin: 0px;
+	padding: 0px;
+	height: 52px;
+	width: 320px;
+	}
+
+#box {
+	width: 267px;
+	height: 87px;
+	margin: 0px auto;
+	}
+
+#helpTxt {
+	margin: 0px auto;
+	color: #fff;
+	width: 250px;
+	}
+
+#backBtn {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	}
+
+.show-over {display: none;}
+.over .show-over {display: block;}
+
+.hide-over {display: block;}
+.over .hide-over {display: none;}
+
+
+.show-won {display: none;}
+.won .show-won {display: block;}
+
+.hide-won {display: block;}
+.won .hide-won {display: none;}
+
+.words-game-over {
+	background-color: #eeda76;
+	width: 292px;
+	color: white;
+	font-family: "Alright Sans", Avenir, Tahoma, sans-serif;
+	/* padding: 10px; */
+	text-align: center;
+	margin-top: 250px;
+	position: absolute;
+	padding: 8px 12px 4px;
+	box-shadow: 2px 2px 0 1px rgba(0, 0, 0, 0.3);
+	left: 2px;
+	height: 69px;
+}
+
+.words-over-message {
+	font-size: 30px;
+}
+
+.words-over-score {
+	font-size: 20px;
+}
+
+.words-over-won-icon {
+	position: absolute;
+	height: 79px;
+	left: 10px;
+	top: 0px;
+}
+
+.words-over-lost-icon {
+	position: absolute;
+	height: 79px;
+	left: 253px;
+	top: 0px;
+}

@@ -1,6 +1,6 @@
 Package('SgcModule.Services', {
 	BreadCrumbs : new Class({
-		implements : ['add'],
+		implements : ['clear', 'add'],
 
 		initialize : function()
 		{
@@ -26,6 +26,10 @@ Package('SgcModule.Services', {
 			this.crumbsSelector.append(template);
 		},
 
+		clear : function()
+		{
+		},
+
 		add : function(name, id, service)
 		{
 			var crumb = {
@@ -38,6 +42,12 @@ Package('SgcModule.Services', {
 			this.crumbs.push(crumb);
 
 			this.drawCrumb(crumb);
+		},
+
+		clear : function()
+		{
+			this.crumbs = [];
+			this.redraw();
 		},
 
 		redraw : function()

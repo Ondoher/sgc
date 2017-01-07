@@ -1,26 +1,3 @@
-/*
-	Copyright 2013 Glenn Anderson
-
-	Permission is hereby granted, free of charge, to any person obtaining
-	a copy of this software and associated documentation files (the
-	"Software"), to deal in the Software without restriction, including
-	without limitation the rights to use, copy, modify, merge, publish,
-	distribute, sublicense, and/or sell copies of the Software, and to
-	permit persons to whom the Software is furnished to do so, subject to
-	the following conditions:
-
-	The above copyright notice and this permission notice shall be
-	included in all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 Package('Sparcade.Views', {
 	MahJongg : new Class({
 
@@ -35,30 +12,86 @@ Package('Sparcade.Views', {
 			css: ''
 		},
 
-		initialize : function()
+		initialize : function(root)
 		{
 			this.parent();
 
+			this.root = root;
+
 		// Get various document elements
-			$('#mj-hint-button').click(this.fire.bind(this, 'hint'));
-			$('#mj-undo-button').click(this.fire.bind(this, 'undo'));
-			$('#mj-redo-button').click(this.fire.bind(this, 'redo'));
-			$('#mj-new-button').click(this.fire.bind(this, 'new'));
+			this.root.find('#mj-hint-button').click(this.fire.bind(this, 'hint'));
+			this.root.find('#mj-undo-button').click(this.fire.bind(this, 'undo'));
+			this.root.find('#mj-redo-button').click(this.fire.bind(this, 'redo'));
+			this.root.find('#mj-new-button').click(this.fire.bind(this, 'new'));
+			this.root.find('#mj-solve-button').click(this.fire.bind(this, 'solve'));
+			this.root.find('#mj-share-button').click(this.fire.bind(this, 'share'));
 
 			//$('#mj-board-nbr').click
-			this.gameBoardDiv = $('#mj-game-board');
-			this.layoutDiv = $('#mj-layout');
-			this.messageDiv = $('#mj-message');
-			this.shortMessageDiv = $('#mj-small-message');
-			this.tilesLeftDiv = $('#mj-tiles-left');
-			this.timeDiv = $('#mj-time');
+			this.gameBoardDiv = this.root.find('#mj-game-board');
+			this.layoutDiv = this.root.find('#mj-layout');
+			this.messageDiv = this.root.find('#mj-message');
+			this.shortMessageDiv = this.root.find('#mj-small-message');
+			this.tilesLeftDiv = this.root.find('#mj-tiles-left');
+			this.timeDiv = this.root.find('#mj-timer');
+			this.timeToBeatDiv = this.root.find('#mj-to-beat');
 
 			this.setTileset();
 			this.tiles = [];
 		},
 
+		getDuration : function(time)
+		{
+			var hours = Math.floor(time / 60 / 60 / 1000);
+			time -= hours * 60 * 60 * 1000;
+			var minutes = Math.floor(time / 60 / 1000);
+			time -= minutes * 60 * 1000;
+			var seconds = Math.floor(time / 1000);
+
+			return hours.toString() + ':' + minutes.toString().pad(2, '0', 'left') + ':' + seconds.toString().pad(2, '0', 'left');
+		},
+
 		drawTime : function(time)
 		{
+			var duration = this.getDuration(time);
+			this.timeDiv.text(duration);
+		},
+
+		drawToBeat : function(time)
+		{
+			var duration = this.getDuration(time);
+			this.timeToBeatDiv.text(duration);
+		},
+
+		clearCountDown : function()
+		{
+			$("html").removeClass('counting-down');
+			this.root.find('#countdown').html('');
+			this.clearedCountDown = true;
+		},
+
+		drawCountDown : function(time)
+		{
+			this.clearedCountDown = false;
+			$("html").addClass('counting-down');
+			var hours = Math.floor(time / 60 / 60 / 1000);
+			time -= hours * 60 * 60 * 1000;
+			var minutes = Math.floor(time / 60 / 1000);
+			time -= minutes * 60 * 1000;
+			var seconds = Math.floor(time / 1000);
+
+			var duration = hours.toString() + ':' + minutes.toString().pad(2, '0', 'left') + ':' + seconds.toString().pad(2, '0', 'left');
+
+			if (duration === this.countdownStr) return;
+			this.countdownStr = duration;
+
+			this.root.find('#countdown').removeClass('pulse');
+			setTimeout(function()
+			{
+				if (!this.clearedCountDown)
+					this.root.find('#countdown').addClass('pulse');
+			}.bind(this), 25);
+
+			this.root.find('#countdown').html(this.countdownStr);
 		},
 
 		drawState : function(tileCount, canUndo, canRedo)
@@ -95,6 +128,12 @@ Package('Sparcade.Views', {
 
 		message : function(message)
 		{
+			if (!message)
+				this.root.find('#message').addClass('hidden');
+			else
+				this.root.find('#message').removeClass('hidden');
+
+			this.root.find('#message').html(message);
 		},
 
 		shortMessage : function(message)
@@ -103,12 +142,11 @@ Package('Sparcade.Views', {
 
 		addTile : function(idx, x, y, z, face)
 		{
-			console.log('addTile', idx, x, y, z, face);
 			var canvas = $('#board-canvas');
 
 			var tile = SAPPHIRE.templates.get('tile');
-			tile.addClass('pos-' +  x + '-' + y + '-' + z);
-			tile.addClass('face-' +  face);
+			tile.addClass('pos-' +	x + '-' + y + '-' + z);
+			tile.addClass('face-' +	 face);
 			tile.click(this.fire.bind(this, 'select', idx));
 
 			canvas.append(tile);
@@ -117,6 +155,9 @@ Package('Sparcade.Views', {
 
 		clearBoard : function()
 		{
+			this.timeToBeatDiv.text('');
+			this.root.removeClass('won');
+			this.root.removeClass('to-beat');
 			$('#board-canvas').empty();
 			this.tiles = [];
 		},
@@ -125,8 +166,18 @@ Package('Sparcade.Views', {
 		{
 			this.tileset = (tileset !== undefined)?tileset:this.defaultTileset;
 			$('#board-canvas').addClass('ivory');
+		},
 
-		}
+		won : function()
+		{
+			this.root.addClass('won');
+		},
+
+		toBeat : function(time)
+		{
+			this.root.addClass('to-beat');
+			this.drawToBeat(time);
+		},
 	})
 });
 

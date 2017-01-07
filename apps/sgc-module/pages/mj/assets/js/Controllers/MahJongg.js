@@ -1,26 +1,3 @@
-/*
-	Copyright 2013 Glenn Anderson
-
-	Permission is hereby granted, free of charge, to any person obtaining
-	a copy of this software and associated documentation files (the
-	"Software"), to deal in the Software without restriction, including
-	without limitation the rights to use, copy, modify, merge, publish,
-	distribute, sublicense, and/or sell copies of the Software, and to
-	permit persons to whom the Software is furnished to do so, subject to
-	the following conditions:
-
-	The above copyright notice and this permission notice shall be
-	included in all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 Package('Sparcade.Controllers', {
 	MahJongg : new Class({
 		Extends : Sapphire.Controller,
@@ -35,16 +12,16 @@ Package('Sparcade.Controllers', {
 			this.tileSize = tileSize;
 
 			SAPPHIRE.application.listenPageEvent('load', 'mj', this.onLoad.bind(this));
+			SAPPHIRE.application.listenPageEvent('firstShow', 'mj', this.onFirstShow.bind(this));
+			SAPPHIRE.application.listenPageEvent('hide', 'mj', this.onHide.bind(this));
 			SAPPHIRE.application.listenPageEvent('show', 'mj', this.onShow.bind(this));
 		},
 
-		onLoad : function()
+		onLoad : function(root)
 		{
-			console.log('MjController', 'onLoad');
-
 			this.game = new Sparcade.Engines.MahJongg();
 			this.game.setSetup(undefined);
-			this.view = new Sparcade.Views.MahJongg();
+			this.view = new Sparcade.Views.MahJongg(root);
 
 			this.view.listen('hint', this.onHint.bind(this));
 			this.view.listen('undo', this.onUndo.bind(this));
@@ -52,14 +29,31 @@ Package('Sparcade.Controllers', {
 			this.view.listen('new', this.onNew.bind(this));
 			this.view.listen('selectBoard', this.onSelectBoard.bind(this));
 			this.view.listen('select', this.onSelect.bind(this));
+			this.view.listen('solve', this.onSolve.bind(this));
+			this.view.listen('share', this.onShare.bind(this));
 
 			this.onTimerTick.periodical(250, this);
 		},
 
-		onShow : function()
+		onFirstShow : function(id)
 		{
-			console.log('MjController', 'onShow');
+			console.log(id);
 			this.newBoard(-1);
+		},
+
+		onShow : function(id)
+		{
+			console.log(id);
+			if (id) id = JSON.parse(id);
+			this.restartTimer();
+			if (id && id.gameNbr) this.newBoard(id.gameNbr);
+			if (id && id.time) this.view.toBeat(id.time);
+		},
+
+		onHide : function()
+		{
+			console.log('hidden');
+			this.pauseTimer();
 		},
 
 		restartTimer : function()
@@ -82,9 +76,11 @@ Package('Sparcade.Controllers', {
 
 		stopTimer : function()
 		{
-			this.stopTime = new Date().getTime();
+			if (!this.timerRunning) return;
+			var time = new Date().getTime() - this.startTime;
+			this.time = time;
+			this.view.drawTime(time);
 			this.timerRunning = false;
-			this.paused = false;
 		},
 
 		pauseTimer : function()
@@ -96,6 +92,7 @@ Package('Sparcade.Controllers', {
 
 		onTimerTick : function()
 		{
+			if (!this.timerRunning) return;
 			var time = new Date().getTime() - this.startTime;
 			this.view.drawTime(time);
 		},
@@ -115,10 +112,10 @@ Package('Sparcade.Controllers', {
 
 		setState : function ()
 		{
-
 			if (!this.game.arePlayablePairs() && this.game.tileCount == 0)
 			{
 				this.stopTimer();
+				this.view.won();
 				this.logEvent('win');
 				this.message('YOU WIN!!!');
 				this.gameOver = true;
@@ -144,7 +141,6 @@ Package('Sparcade.Controllers', {
 			console.log('showTile', tile, on)
 			this.view.showTile(tile, on);
 		},
-
 
 		hintTile : function(tile, on)
 		{
@@ -222,6 +218,24 @@ Package('Sparcade.Controllers', {
 			this.view.addTile(tile, x, y, z, face);
 		},
 
+		drawBoard : function()
+		{
+			this.view.clearBoard();
+			var boardLayout = this.game.startBoard.pieces;
+
+			for (var i = 0; i < boardLayout.length ; i++)
+			{
+				var x = boardLayout[i].pos.x;
+				var y = boardLayout[i].pos.y;
+				var z = boardLayout[i].pos.z;
+				var face = boardLayout[i].face;
+
+				this.addTile(i, x, y, z, face);
+			}
+
+			this.setState();
+		},
+
 		makeBoard : function(board)
 		{
 			this.logEvent("newboard");
@@ -279,7 +293,6 @@ Package('Sparcade.Controllers', {
 			this.message("Loading new game ...");
 
 			this.makeBoard(board);
-			console.log('made board', board);
 
 			this.isStart = false;
 			this.gameOver = false;
@@ -376,7 +389,39 @@ Package('Sparcade.Controllers', {
 		onRedo : function()
 		{
 			this.redo();
-		}
+		},
+
+		onSolve : function() {
+			this.game.startOver();
+			this.drawBoard();
+			var solution = this.game.solution.clone();
+			this.startTime = new Date().getTime() - 124000
+
+			var int = setInterval(function()
+			{
+				var tile1, tile2;
+				if (solution.length <= 2)
+				{
+					clearInterval(int)
+					this.game.calcValidMoves();
+					this.setState();
+				}
+				else
+				{
+					tile1 = solution.shift();
+					tile2 = solution.shift();
+					this.game.playPair(tile1, tile2);
+					this.view.showTile(tile1, false)
+					this.view.showTile(tile2, false)
+				}
+			}.bind(this), 50)
+		},
+
+		onShare : function()
+		{
+			console.log('sharing', this.game.gameNbr, this.time);
+			SAPPHIRE.application.fire('share', this.game.gameNbr, this.time);
+		},
 	})
 });
 

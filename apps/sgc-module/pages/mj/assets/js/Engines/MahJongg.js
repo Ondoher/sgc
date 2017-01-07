@@ -53,8 +53,8 @@ Package('Sparcade.Engines', {
 		Extends : Sapphire.Eventer,
 
 	/*
-  	The entire play field consists of a 3 dimensional grid upon which tiles are placed.
-  	A tile occupies a 2x2x1 area of this grid.
+	The entire play field consists of a 3 dimensional grid upon which tiles are placed.
+	A tile occupies a 2x2x1 area of this grid.
 	*/
 		defaultSetup :
 		{
@@ -67,7 +67,7 @@ Package('Sparcade.Engines', {
 				{x : 15, y : 1, z : 1}, {x : 17, y : 1, z : 1}, {x : 19, y : 1, z : 1},
 				{x : 21, y : 1, z : 1}, {x : 23, y : 1, z : 1}, {x : 25, y : 1, z : 1},
 
-				{x : 7, y : 3, z : 1},  {x : 9, y : 3, z : 1},
+				{x : 7, y : 3, z : 1},	{x : 9, y : 3, z : 1},
 				{x : 11, y : 3, z : 1}, {x : 13, y : 3, z : 1}, {x : 15, y : 3, z : 1},
 				{x : 17, y :3, z : 1}, {x : 19, y : 3, z : 1}, {x : 21, y : 3, z : 1},
 
@@ -148,9 +148,9 @@ Package('Sparcade.Engines', {
 			this.flowerFaceSetArray = [38,39,40,41];
 
 			this.layout = [];					// where tiles can be placed
-			this.startBoard = [];	    		// where tiles have been placed
+			this.startBoard = [];				// where tiles have been placed
 			this.board = [];					// where tiles currently are
-			this.setup = {};          			// describes and contains the layout
+			this.setup = {};					// describes and contains the layout
 
 			this.moveCount = [];				// number of moves in the UNDO stack
 			this.lastMove = 0;					// top of the UNDO stack
@@ -158,10 +158,10 @@ Package('Sparcade.Engines', {
 			this.goodMoves = new Array(144);	// TRUE if specified index into the board is playable
 
 			this.usedSpaces = [];				// where tiles are currently placed on the entire grid. two dimentional array of sets, indexed on z and y axis. sets represent xoffsets within the grid
-			this.usedTiles = new Set([]);		    // index into the layout for tiles are on the board
+			this.usedTiles = new Set([]);			// index into the layout for tiles are on the board
 
 		// DURING BOARD GENERAION
-			this.placementCount = 0;		   	// number of placements for a tile
+			this.placementCount = 0;			// number of placements for a tile
 			this.goodPlacements = [];			// where tiles can be placed, each item is an index into the layout
 			this.pairCount = 0;					// number of playable pairs
 			this.pairs = [];					// playable pairs, each item consists of a tuple {piece1, piece2} which are indexes into the board layout
@@ -181,7 +181,6 @@ Package('Sparcade.Engines', {
 
 		addPair : function (tile1, tile2)
 		{
-			console.log('addPair', tile1, tile2)
 			this.addPos(this.board.pieces[tile1].pos, tile1);
 			this.board.pieces[tile1].face = this.startBoard.pieces[tile1].face;
 
@@ -193,7 +192,6 @@ Package('Sparcade.Engines', {
 
 		addPos : function (position, tile)
 		{
-			console.log('addPos', position, tile)
 			with(position)
 			{
 				if (x == -1) return;
@@ -260,7 +258,7 @@ Package('Sparcade.Engines', {
 			}
 			catch (err)
 			{
-				console.log('error: ' + err);
+				console.error(err.stack);
 			}
 
 			return this.placementCount;
@@ -293,10 +291,8 @@ Package('Sparcade.Engines', {
 			faceSet.faces.splice(idx, 1);
 
 			var facesCount = faceSet.faces.length;
-			console.log('drawOneOf', faceSetIdx, faceSet);
 			if (facesCount == 0)
 			{
-				console.log('deleted faceSet', faceSetIdx);
 				delete faceSet;
 				this.tiles.faceSets.splice(faceSetIdx, 1);
 				this.tiles.count--;
@@ -309,11 +305,9 @@ Package('Sparcade.Engines', {
 		drawTilePair : function ()
 		{
 			var faceSetIdx = Math.random(this.tiles.count);
-			console.log(this.tiles.count, faceSetIdx);
 			var pair = new Object();
 			pair.tile1 = this.drawOneOf(faceSetIdx);
 			pair.tile2 = this.drawOneOf(faceSetIdx);
-			console.log('drawTilePair', pair);
 			return pair;
 		},
 
@@ -321,7 +315,6 @@ Package('Sparcade.Engines', {
 
 		generateLayout : function ()
 		{
-			console.log('generateLayout');
 			var posIdx1 = 0;
 			var posIdx2 = 0;
 			var pairIdx = 0;
@@ -392,8 +385,6 @@ Package('Sparcade.Engines', {
 
 		// pick 2 faces from the pile
 			var pair = this.drawTilePair();
-
-			console.log('pair', pair);
 
 		// assign faces to drawn tiles
 			this.startBoard.pieces[placement1.piece].face = pair.tile1;
@@ -545,6 +536,7 @@ Package('Sparcade.Engines', {
 		{
 			var badLayout;
 			var tries = 0;
+			this.gameNbr = gameNbr;
 
 			try
 			{
@@ -587,7 +579,6 @@ Package('Sparcade.Engines', {
 			}
 			finally
 			{
-				console.log('finally');
 				Math.randomize();
 			}
 		},
@@ -661,6 +652,16 @@ Package('Sparcade.Engines', {
 			if (setup == undefined) this.setup = this.defaultSetup
 			else this.setup = setup;
 
+		},
+
+		//----------------------------------------------------------------------------
+
+		startOver : function()
+		{
+			while (this.canUndo())
+			{
+				this.undo();
+			}
 		}
 
 	})
