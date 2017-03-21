@@ -1,8 +1,9 @@
 var config = {
-	defaultApp : 'sgc',
-	useCompression: false,
-	builderCache: false,
-	minify : false,
+	podAppIdExceptions: {
+		111: 'sgc',
+		130: 'sgc-dev',
+		1045: '0996c26cd1a440dcb0effa89f749163c',
+	}
 }
 
 var env = process.env.node_env;

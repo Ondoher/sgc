@@ -1,3 +1,10 @@
+var POD_ID;
+
+window.addEventListener("message", function(msg)
+{
+	if (msg.data && msg.data.pod) POD_ID = msg.data.pod;
+}, false);
+
 Package('Sgc.Services', {
 	Controller : new Class({
 		implements : ['select', 'link', 'connect'],
@@ -8,6 +15,13 @@ Package('Sgc.Services', {
 
 			SAPPHIRE.application.listen('start', this.onStart.bind(this));
 			SAPPHIRE.application.listen('ready', this.onReady.bind(this));
+		},
+
+		getAppId : function(podId)
+		{
+			var exceptions = SGC.podAppIdExceptions || {};
+
+			return exceptions[podId] || 'sgc';
 		},
 
 		select : function(id)
@@ -30,7 +44,7 @@ Package('Sgc.Services', {
 			else
 			{
 				this.pendingCommands = this.pendingCommands || [];
-				this.pendingCommands.push({cmd: 'link', type: type});
+				this.pendingCommands.push({cmd: 'link', type: type, id: id});
 				this.modulesService.show('sgc-games', {title: 'Symfuny Game Center', icon: SGC.baseUrl + 'sgc/assets/images/icon.png'}, 'sgc:controller', SGC.baseUrl + 'sgc-module', options);
 			}
 		},
@@ -57,7 +71,9 @@ Package('Sgc.Services', {
 		{
 			SYMPHONY.remote.hello()
 				.then(function(data) {
-					this.pod = data.pod;
+					console.log(data);
+					this.pod = data.pod || POD_ID;
+					this.appId = this.getAppId(this.pod);
 					done();
 				}.bind(this))
 				.done();
@@ -65,7 +81,8 @@ Package('Sgc.Services', {
 
 		onReady : function()
 		{
-			return SYMPHONY.application.register('sgc', ['ui', 'modules', 'applications-nav', 'share'], ['sgc:controller'])
+			console.log('this.appId', this.appId);
+			return SYMPHONY.application.register(this.appId, ['ui', 'modules', 'applications-nav', 'share'], ['sgc:controller'])
 				.then(function()
 				{
 					this.uiService = SYMPHONY.services.subscribe('ui');

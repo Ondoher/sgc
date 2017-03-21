@@ -1,0 +1,15 @@
+{
+  "applications": [
+    {
+      "type": "sandbox",
+      "id": "sgc-dev",
+      "name": "Symfuny Game Center - DEV",
+      "blurb": "Play games, have fun",
+      "publisher": "Symphony",
+      "url": "https://localhost:8081/sgc",
+      "domain": "localhost",
+      "visible": true,
+      "icon":"https://localhost:8081/sgc/assets/images/logo.png"
+    }
+  ]
+}

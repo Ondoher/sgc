@@ -46,6 +46,7 @@ exports.getApplication = function(req, res)
 	app.setBody('apps/sgc-module/templates/body.html');
 	app.setMaster('apps/sgc-module/templates/master.html');
 	app.addVariable('baseUrl', CONFIG.baseUrl);
+	app.addVariable('podAppIdExceptions', CONFIG.sgc.podAppIdExceptions);
 
 	return main(req, res, app)
 		.then(sapphire.features.animator.bind(sapphire.features.animator, req, res))

@@ -10,7 +10,7 @@ module.exports = function(req, res, app)
 		name: 'mj',
 		url: 'assets/pages/mj.html',
 		javascript: ['assets/js/Controllers/MahJongg.js', 'assets/js/Views/MahJongg.js', 'assets/js/Engines/MahJongg.js'],
-		css: ['assets/css/mj.css', 'assets/css/ivory_32.css'],
+		css: ['assets/css/mj.css', 'assets/css/ivory_48.css'],
 	});
 
 	return Q(app);

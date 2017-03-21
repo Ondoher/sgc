@@ -3,6 +3,7 @@
 	height: 480px;
 	background-image: url('/sgc-module/pages/words/assets/images/background.jpg');
 	font-family: "Courier New", Courier, monospace;
+	color: black;
 }
 
 .logo {

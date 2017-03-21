@@ -1,3 +1,10 @@
+var POD_ID;
+
+window.addEventListener("message", function(msg)
+{
+	if (msg.data && msg.data.pod) POD_ID = msg.data.pod;
+}, false);
+
 Package('Sgc.Services', {
 	Module : new Class({
 		implements : ['link'],
@@ -13,9 +20,15 @@ Package('Sgc.Services', {
 
 		link : function(type, id)
 		{
-			console.log('link', type, id);
 			SAPPHIRE.application.showPage('mj', id, Math.random());
 			SAPPHIRE.application.fire('linked');
+		},
+
+		getAppId : function(podId)
+		{
+			var exceptions = SGC_MODULE.podAppIdExceptions || {};
+
+			return exceptions[podId] || 'sgc';
 		},
 
 		setTheme : function(theme)
@@ -38,7 +51,8 @@ Package('Sgc.Services', {
 		{
 			SYMPHONY.remote.hello()
 				.then(function(data) {
-					this.pod = data.pod;
+					this.pod = data.pod || POD_ID;
+					this.appId = this.getAppId(this.pod);
 					this.setTheme(data.themeV2);
 					done();
 				}.bind(this));
@@ -46,7 +60,7 @@ Package('Sgc.Services', {
 
 		onReady : function()
 		{
-			return SYMPHONY.application.connect('sgc', ['ui', 'modules', 'applications-nav', 'share'], ['sgc:module'])
+			return SYMPHONY.application.connect(this.appId, ['ui', 'modules', 'applications-nav', 'share'], ['sgc:module'])
 				.then(function()
 				{
 					this.uiService = SYMPHONY.services.subscribe('ui');
