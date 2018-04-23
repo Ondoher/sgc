@@ -46,12 +46,13 @@ exports.getApplication = function(req, res)
 	app.setBody('apps/sgc-module/templates/body.html');
 	app.setMaster('apps/sgc-module/templates/master.html');
 	app.addVariable('baseUrl', CONFIG.baseUrl);
-	app.addVariable('podAppIdExceptions', CONFIG.sgc.podAppIdExceptions);
+    app.addVariable('podAppIdExceptions', CONFIG.sgc.podAppIdExceptions);
 
 	return main(req, res, app)
 		.then(sapphire.features.animator.bind(sapphire.features.animator, req, res))
 		.then(sapphire.features.dialogs.bind(sapphire.features.dialogs, req, res))
-		.then(use('features', 'bridge', req, res))
+ //		.then(use('features', 'bridge', req, res))
+		.then(use('features', 'services', req, res))
 		.then(use('features', 'bread-crumbs', req, res))
 		.then(use('pages', 'directory', req, res))
 		.then(use('pages', 'mj', req, res))

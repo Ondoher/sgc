@@ -25,6 +25,7 @@ try
 }
 catch (e)
 {
+    console.log(e);
 }
 
 module.exports = Object.merge(config, envConfig);

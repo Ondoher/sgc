@@ -39,13 +39,13 @@ exports.getApplication = function(req, res)
 	app.setTitle('Symfuny Game Center');
 	app.setBody('apps/sgc/templates/body.html');
 	app.setMaster('apps/sgc/templates/master.html');
-	app.addVariable('baseUrl', CONFIG.baseUrl);
+    app.addVariable('baseUrl', CONFIG.baseUrl);
 	app.addVariable('podAppIdExceptions', CONFIG.sgc.podAppIdExceptions);
 
 	return main(req, res, app)
 		.then(sapphire.features.animator.bind(sapphire.features.animator, req, res))
 		.then(sapphire.features.dialogs.bind(sapphire.features.dialogs, req, res))
-		.then(use('features', 'bridge', req, res))
+		.then(use('features', 'services', req, res))
 		.then(function(app)
 		{
 			return Q(app);
