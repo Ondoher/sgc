@@ -1,0 +1,16 @@
+{
+  "applications": [
+    {
+      "type": "privileged",
+      "id": "sample-feature",
+      "name": "Sample Feature",
+      "blurb": "Yeah, do the sample thing",
+      "publisher": "Testy mcTesty-face",
+      "service" : "sample-navigation",
+      "icon": "https://localhost:8081/sgc/assets/images/logo.png",
+      "javascript": ["https://localhost:8081/sgc/assets/privileged/feature.js"],
+      "css": [],
+      "html" : []
+    }
+  ]
+}

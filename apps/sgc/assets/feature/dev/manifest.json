@@ -1,0 +1,7 @@
+{
+   "prefix": "sample:",
+   "js": [
+     "https://localhost:8081/sgc/assets/feature/dev/feature.js"
+   ],
+   "css": []
+}

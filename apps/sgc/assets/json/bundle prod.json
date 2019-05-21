@@ -1,0 +1,15 @@
+{
+  "applications": [
+    {
+      "type": "sandbox",
+      "id": "0996c26cd1a440dcb0effa89f749163c",
+      "name": "Symfuny Game Center",
+      "blurb": "Play games, have fun",
+      "publisher": "Symphony",
+      "url": "https://apps.uber-geek.com/sgc",
+      "domain": ".uber-geek.com",
+      "visible": true,
+      "icon":"https://apps.uber-geek.com/sgc/assets/images/logo.png"
+    }
+  ]
+}

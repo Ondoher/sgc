@@ -2,7 +2,7 @@
   "applications": [
     {
       "type": "sandbox",
-      "id": "sgc-dev",
+      "id": "sgc.dev",
       "name": "Symfuny Game Center - DEV",
       "blurb": "Play games, have fun",
       "publisher": "Symphony",

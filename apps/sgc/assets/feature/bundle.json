@@ -1,0 +1,13 @@
+{
+  "features": [
+    {
+      "type": "feature",
+      "id": "sample-feature",
+      "name": "Sample Feature",
+      "blurb": "Yeah, do the sample thing",
+      "publisher": "Testy mcTesty-face",
+      "icon": "https://localhost:8081/sgc/assets/images/logo.png",
+      "manifestUrl": "https://localhost:8081/sgc/assets/feature/manifest.json"
+    }
+  ]
+}
