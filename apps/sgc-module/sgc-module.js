@@ -4,7 +4,7 @@ var sapphire = require('sapphire-express');
 function main(req, res, app)
 {
 	app.addJS([
-		'https://www.symphony.com/resources/api/v1.0/symphony-api.js',
+//		'https://www.symphony.com/resources/api/v1.0/symphony-api.js',
 	], true);
 
 	app.addCSS([
@@ -52,7 +52,7 @@ exports.getApplication = function(req, res)
 		.then(sapphire.features.animator.bind(sapphire.features.animator, req, res))
 		.then(sapphire.features.dialogs.bind(sapphire.features.dialogs, req, res))
  //		.then(use('features', 'bridge', req, res))
-		.then(use('features', 'services', req, res))
+//		.then(use('features', 'services', req, res))
 		.then(use('features', 'bread-crumbs', req, res))
 		.then(use('pages', 'directory', req, res))
 		.then(use('pages', 'mj', req, res))
