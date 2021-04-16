@@ -38,7 +38,7 @@ Package('SgcModule.Services', {
 
 		onStart : function(done)
 		{
-			var bootstrap = SYMPHONY.services.subscribe('bootstrap');
+			var bootstrap = SYMPHONY.services.subscribe('sgc-module:bootstrap');
 
 			this.importServices.each(function(service)
 			{

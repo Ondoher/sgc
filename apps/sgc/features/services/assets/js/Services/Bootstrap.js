@@ -4,7 +4,7 @@ Package('Sgc.Services', {
 
 		initialize : function()
 		{
-			this.serviceName = 'bootstrap';
+			this.serviceName = 'sgc:bootstrap';
 			this.exportServices = [];
 			this.importServices = [];
 
